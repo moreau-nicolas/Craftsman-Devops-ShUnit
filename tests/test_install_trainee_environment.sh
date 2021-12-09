@@ -100,6 +100,11 @@ test_skippy() {
   assertTrue "[ 0 -eq 0 ]"
 }
 
+test_line_nb() {
+    ${_ASSERT_EQUALS_} "'not equals'" 1 2
+    assertEquals 'not equals' 1 2
+}
+
 # Eat all command-line arguments before calling shunit2.
 shift $#
 # Load shUnit2.
