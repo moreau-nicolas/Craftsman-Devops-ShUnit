@@ -80,16 +80,24 @@ gcloud services enable container.googleapis.com --project formation-ci-static_us
 gcloud container clusters create formation-ci --region europe-west1 --project formation-ci-static_user --preemptible --machine-type e2-standard-8 --num-nodes 1 --min-nodes 0 --max-nodes 3 --enable-autorepair --enable-autoscaling' "$(cat gcloud_log)"
 }
 
-my_test1() {
-  assertTrue "[ 0 -eq 0 ]"
-}
-my_test2() {
-  assertTrue "[ 0 -eq 0 ]"
-}
+# my_test1() {
+#   assertTrue "[ 0 -eq 0 ]"
+# }
+# my_test2() {
+#   assertTrue "[ 0 -eq 0 ]"
+# }
 
-suite() {
-  suite_addTest my_test1
-  suite_addTest my_test2
+# suite() {
+#   suite_addTest my_test1
+#   suite_addTest my_test2
+# }
+
+test_skippy() {
+  assertTrue "[ 0 -eq 0 ]"
+  startSkipping
+  assertTrue "[ 0 -eq 1 ]"
+  endSkipping
+  assertTrue "[ 0 -eq 0 ]"
 }
 
 # Eat all command-line arguments before calling shunit2.
