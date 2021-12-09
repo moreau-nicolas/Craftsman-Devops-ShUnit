@@ -10,6 +10,17 @@ __root_tst="$(cd "$(dirname "${__dir_tst}")" && pwd)" # <-- change this as it de
 
 SCRIPT_PATH="${__root_tst}/install_trainee_environment.sh"
 
+# Mock "gcloud" command
+# save command line in gcloud_log file
+# this function has behavior depending on the command line.
+gcloud() {
+  echo "${FUNCNAME[0]} $*" >> gcloud_log
+}
+
+tearDown() {
+  rm -f gcloud_log
+}
+
 test_should_be_successfull() {
   assertTrue "[ 0 -eq 0 ]"
 }
@@ -20,6 +31,17 @@ test_should_failed_without_parameters() {
 
   assertEquals 'Wrong usage message' "$(cat tests/expected/usage_message.txt)" "${result}"
   assertEquals "Wrong return code" '1' "${code}"
+}
+
+test_get_cluster_credentials_should_be_successful() {
+  source "${SCRIPT_PATH}" --source-only
+  # workaround: disable 'set -o errexit'
+  set +e
+  result=$(get_cluster_credentials)
+  code=$?
+
+  assertEquals "Wrong return code" '0' "${code}"
+  assertEquals 'Wrong gcloud cmd' 'gcloud container clusters get-credentials formation-ci --region europe-west1 --project formation-ci-laurent' "$(cat gcloud_log)"
 }
 
 # Eat all command-line arguments before calling shunit2.
