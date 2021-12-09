@@ -14,6 +14,14 @@ test_should_be_successfull() {
   assertTrue "[ 0 -eq 0 ]"
 }
 
+test_should_failed_without_parameters() {
+  result=$(source "${SCRIPT_PATH}" --source-only 2>&1)
+  code=$?
+
+  printf "${result}"
+  assertEquals "Wrong return code" '0' "${code}"
+}
+
 # Eat all command-line arguments before calling shunit2.
 shift $#
 # Load shUnit2.

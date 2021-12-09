@@ -178,6 +178,9 @@ case ${arg1} in
   "-h"|"--help")
     usage
     ;;
+  "--source-only")
+    return 0
+    ;;
   *)
     usage
     exit 1
