@@ -42,6 +42,7 @@ test_get_cluster_credentials_should_be_successful() {
 
   assertEquals "Wrong return code" '0' "${code}"
   assertEquals 'Wrong gcloud cmd' 'gcloud container clusters get-credentials formation-ci --region europe-west1 --project formation-ci-laurent' "$(cat gcloud_log)"
+  assertEquals 'Wrong result' '## Get credentials laurent' "${result}"
 }
 
 # Eat all command-line arguments before calling shunit2.
