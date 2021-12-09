@@ -1,0 +1,17 @@
+Usage:
+ install_trainee_environment [Option]
+
+ Options:
+ - create: create cluster, reverse proxy, trainees namespaces,
+           add helm charts, and display trainees infos
+ - create_rp: create reverse proxy
+ - add_helm: add helm charts to cluster
+ - create_ns: create trainees namespaces in cluster
+ - delete_ns: delete trainees namespaces in cluster
+ - delete_rp: delete reverse proxy
+ - delete_cl: delete cluster
+ - delete_pj: delete project
+ - delete: delete reverse proxy and delete clsuter (in this order)
+ - get_cred: init kubectl
+ - info: display trainees infos
+ - -h, --help: display this help message
