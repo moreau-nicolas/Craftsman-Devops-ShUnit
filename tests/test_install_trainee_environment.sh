@@ -34,15 +34,15 @@ test_should_failed_without_parameters() {
 }
 
 test_get_cluster_credentials_should_be_successful() {
-  source "${SCRIPT_PATH}" --source-only
+  USER=static_user source "${SCRIPT_PATH}" --source-only
   # workaround: disable 'set -o errexit'
   set +e
-  result=$(get_cluster_credentials)
+  result=$(USER=other_user get_cluster_credentials)
   code=$?
 
   assertEquals "Wrong return code" '0' "${code}"
-  assertEquals 'Wrong gcloud cmd' 'gcloud container clusters get-credentials formation-ci --region europe-west1 --project formation-ci-laurent' "$(cat gcloud_log)"
-  assertEquals 'Wrong result' '## Get credentials laurent' "${result}"
+  assertEquals 'Wrong gcloud cmd' 'gcloud container clusters get-credentials formation-ci --region europe-west1 --project formation-ci-static_user' "$(cat gcloud_log)"
+  assertEquals 'Wrong result' '## Get credentials other_user' "${result}"
 }
 
 # Eat all command-line arguments before calling shunit2.
